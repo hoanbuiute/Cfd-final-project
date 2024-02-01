@@ -20,8 +20,22 @@ import MyOrder from "./pages/DashBoardPage/MyOrder";
 import MyAdresses from "./pages/DashBoardPage/MyAdresses";
 import MyWishlist from "./pages/DashBoardPage/MyWishlist";
 import AccoutDetail from "./pages/DashBoardPage/AccoutDetail";
+import { useDispatch } from "react-redux";
+import { handleGetProfile } from "./store/reducers/authReducer";
+import { handdleGetCart } from "./store/reducers/cartReducer";
+import { useEffect } from "react";
+import tokenMethod from "./utils/token";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+
+    if(tokenMethod.get()){
+      dispatch(handleGetProfile())
+      dispatch(handdleGetCart())
+    }
+  }, [])
+  
   return (
     <>
       <BrowserRouter>

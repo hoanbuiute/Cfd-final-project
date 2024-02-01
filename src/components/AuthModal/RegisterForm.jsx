@@ -7,8 +7,9 @@ import { message } from "antd";
 import { useForm } from "react-hook-form";
 import Input from "../Input";
 import { MESSEAGE, REGREX } from "../../constants/validate";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleRegister } from "../../store/reducers/authReducer";
+import useDebounce from "../../hooks/useDebounce";
 
 const rules = {
   name: [requireRule("Vui lòng nhập tên")],
@@ -36,8 +37,11 @@ const rules = {
 const RegisterForm = () => {
   // const { showModal, handleShowModal, handleCloseModal, handleRegister } =
   //   useAuthContext();
-    const [loading, setLoading] = useState(false); 
+    // const [loading, setLoading] = useState(false); 
     const dispatch= useDispatch();
+    const loading = useSelector((state)=>state.auth.loading.register);
+    
+    // const loadingRender = useDebounce(loading,300)
 
   const {
     reset,
@@ -49,7 +53,7 @@ const RegisterForm = () => {
   const _onSubmit = (data) => {
     console.log("data", data);
     if(data){
-      setLoading(true);
+      // setLoading(true);
       // handleRegister?.(data, ()=>{
       //   setTimeout(() => {
 
@@ -60,13 +64,16 @@ const RegisterForm = () => {
      try {
       dispatch(handleRegister(data))
      } catch (error) {
-      console.log(3)
+      // console.log(3)
      }
     }
   };
   return (
     <>
       <form action="#" onSubmit={handleSubmit(_onSubmit)}>
+        {
+          loading && <ComponentLoading/>
+        }
         <Input
           required
           name="email"

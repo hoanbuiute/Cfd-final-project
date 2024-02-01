@@ -8,8 +8,12 @@ import Breadcrumb from "../../components/Breadcrumb";
 import ProductList from "./productList";
 import PATHS from "../../constants/paths";
 import { Link } from "react-router-dom";
+import useProductPage from "../../hooks/useProductPage";
 
 const ProductPage = () => {
+  const {productListProps,pagiProps,toolboxProps,filterProps} =useProductPage();
+  // console.log('🚀productListProps---->', productListProps);
+  
   return (
     <main className="main">
       <div
@@ -30,11 +34,11 @@ const ProductPage = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-9">
-              <ProductToolbox />
-              <ProductList />
-              <Pagination />
+              <ProductToolbox {...toolboxProps} />
+              <ProductList {...productListProps} />
+              <Pagination {...pagiProps}/>
             </div>
-            <ProductFilter />
+            <ProductFilter {...filterProps} />
           </div>
         </div>
       </div>

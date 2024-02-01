@@ -14,8 +14,8 @@ const useMutation = (promise) => {
             setLoading(true);
             try {
               const res = await promise(payload);
-              setData(res.data?.data || []);
-              onSuccess?.(res.data?.data);
+              setData(res?.data || []);
+              onSuccess?.(res?.data);
             } catch (error) {
               setError(error);
               onFail?.(error);

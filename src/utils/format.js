@@ -19,3 +19,8 @@ export const formatNumber = (data) =>{
   if(!data) return 0;
   return Math.round(data);
 }
+
+export const tranformNumberToPercent = (number) =>{
+  if(!number) return 0
+  return number * 100
+}

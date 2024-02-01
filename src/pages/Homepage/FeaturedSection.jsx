@@ -22,7 +22,7 @@ const FeaturedSection = ({
   const [selectTab, setSelectTab] = useState(TABS.featured);
   const [loadingCarosel, setLoadingCarosel] = useState(false)
   const loading = useDebounce(productsLoading, 500);
-  
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -119,7 +119,7 @@ const FeaturedSection = ({
             )}
             {
               <div className="row">
-                {loading &&
+                {loading && 
                   Array(4)
                     .fill("")
                     .map((_, index) => (
@@ -136,6 +136,7 @@ const FeaturedSection = ({
                     ))}
               </div>
             }
+   
 
             {  renderProducts?.length > 0 && (
               <div
@@ -162,6 +163,7 @@ const FeaturedSection = ({
                                           }
                                       }'
               >
+     
                 {renderProducts?.map((item) => {
                   // console.log("item",item)
                   return <ProductCard key={item.id} {...item} />;

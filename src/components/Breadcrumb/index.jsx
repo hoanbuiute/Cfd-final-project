@@ -1,7 +1,7 @@
 import React from "react";
 
 const Breadcrumb = ({ className, children }) => {
-  console.log("className",className)
+  // console.log("className",className)
   return (
     <nav aria-label="breadcrumb" className={`breadcrumb-nav  ${className}`}>
       <div className="container">

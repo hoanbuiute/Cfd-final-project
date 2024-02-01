@@ -2,20 +2,22 @@ import React from "react";
 import { useAuthContext } from "../Context/AuthContext";
 import { MODAL_TYPE } from "../../constants/general";
 import tokenMethod from "../../utils/token";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PATHS from "../../constants/paths";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout, handleShowModal } from "../../store/reducers/authReducer";
 
 const HeaderTop = () => {
   // const {showModal, handleShowModal,handleLogout } = useAuthContext();
-  const {profile} = useSelector((state)=>state.auth)
+  const {profile,loading} = useSelector((state)=>state.auth)
   console.log("profile",profile);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   //function hiển thị modal
   const _onShowModal = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    ///Nhận vào pay load
     dispatch(handleShowModal(MODAL_TYPE.login));
     // console.log("1",1);
 
@@ -24,6 +26,7 @@ const HeaderTop = () => {
     e.preventDefault();
     e.stopPropagation();
     dispatch(handleLogout())
+    navigate(PATHS.HOME);
   }
 
   // console.log('5555')

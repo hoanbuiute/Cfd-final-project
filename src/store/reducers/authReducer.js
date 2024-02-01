@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import tokenMethod from "../../utils/token";
 import { message } from "antd";
 import { authService } from "../../services/authService";
+import { handdleGetCart } from "./cartReducer";
 
 const initialState = {
   showModal: "",
@@ -20,6 +21,7 @@ export const authSlice = createSlice({
   reducers: {
     handleShowModal: (state, action) => {
       state.showModal = action.payload;
+      // console.log('action---->',action );
     },
     handleCloseModal: (state) => {
       state.showModal = "";
@@ -48,8 +50,8 @@ export const authSlice = createSlice({
     .addCase(handleLogin.fulfilled, (state) => {
       state.loading.login = false;
       state.showModal = "";
-      console.log("statefulfilled",state?.loading.login)
-      console.log("1",1)
+      // console.log("statefulfilled",state?.loading.login)
+      // console.log("1",1)
     })
 
     .addCase(handleLogin.pending, (state) => {
@@ -102,6 +104,7 @@ export const handleLogin = createAsyncThunk(
     });
     // dispatch(handleCloseModal())
     dispatch(handleGetProfile())
+    dispatch(handdleGetCart())
     message.success("đăng nhập thành công");
     return true;
     // if (!!tokenMethod) {
@@ -139,6 +142,7 @@ export const handleRegister = createAsyncThunk(
     };
     try {
       const registerRes = await authService.register(payload);
+
       if ( registerRes?.data?.id) {
         message.success("Đăng ký thành công");
         thunkAPI.dispatch(

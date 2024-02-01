@@ -36,4 +36,4 @@ const useQuery = (promise, dependensies =[]) => {
     
 }
 
-export default useQuery
+export default useQuery;

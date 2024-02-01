@@ -52,7 +52,7 @@ import useDebounce from "../../hooks/useDebounce";
     //       dispatch(handleLogin(data))
           
     //     }
-    if (data ) {
+    if (data) {
 			// setLoading(true);
 			// handleLogin?.(data, () => {
 			// 	setTimeout(() => {
@@ -70,12 +70,13 @@ import useDebounce from "../../hooks/useDebounce";
       };
       // const loadingFormLoginX = auth.loading.login
       const loadingFormLoginRender = useDebounce(loading,3000)
+      console.log('🚀useDebounceLoading---->', loadingFormLoginRender);
       
   return (
     <>
       <form onSubmit={handleSubmit(_onSubmit)} action="#">
       {
-                 loadingFormLoginRender && <ComponentLoading/>
+                 loading && <ComponentLoading/>
               }
         <Input
           name="email"

@@ -16,4 +16,7 @@ export const productService = {
     getCategoryBySlug(slug = "") {
       return axiosInstance.get(`/product-categories/${slug}`);
     },
+    getProductReview(query="",id=""){
+      return axiosInstance.get(`/reviews/product/${id}${query}`);
+    }
   };

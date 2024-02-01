@@ -1,14 +1,13 @@
-import React from "react";
-import { applyMiddleware, combineReducers, compose, createStore } from "redux";
-import counterReducer from "./reducers/counterReducer";
-import dogReducer from "./reducers/dogReducer";
+
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./reducers/authReducer";
 import { ENV } from "../constants/environment";
+import cartReducer from "./reducers/cartReducer";
 
 const store = configureStore({
 reducer:{
-  auth:authReducer
+  auth:authReducer,
+  cart:cartReducer
 },
 devTools: ENV === "development",
  
