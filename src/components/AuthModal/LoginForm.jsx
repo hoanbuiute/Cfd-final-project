@@ -12,72 +12,45 @@ import { handleLogin } from "../../store/reducers/authReducer";
 import useSelection from "antd/es/table/hooks/useSelection";
 import useDebounce from "../../hooks/useDebounce";
 
-// const rules = {
-//   email: [
-//     requireRule("Vui lòng nhập email"),
-//     regrexRule("email", "Vui lòng nhập đúng định dạng email"),
-//   ],
-//   password: [
-  //     requireRule("Vui lòng nhập password"),
-  //     regrexRule("password", "Vui lòng nhập đúng định dạng password"),
-  //   ],
-  // };
-  
-  const LoginForm = () => {
-    // const [loading, setLoading] = useState(false)
-    const loading = useSelector((state)=>state.auth.loading.login);
-    console.log('🚀loading---->', loading);
-    // const loadingLogin =loading?.login
-    const {
-      reset,
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm();
+const LoginForm = () => {
+  // const [loading, setLoading] = useState(false)
+  const loading = useSelector((state) => state.auth.loading.login);
+  console.log("🚀loading---->", loading);
+  // const loadingLogin =loading?.login
+  const {
+    reset,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   // const {handleLogin} = useAuthContext();
   // console.log('🚀loadingformLoading---->', loading);
-  const dispatch =useDispatch()
+  const dispatch = useDispatch();
   const _onSubmit = async (data) => {
-    // console.log("data", data);
-    // if(data && !loadingLogin ) {
-    //   // setLoading(true)
-    //   // console.log("Submit success:", data);
-    //   ///Hàm handleLogin nhận vào payload và hàm callback
-    //   // handleLogin?.(data, ()=>{
-    //     //   setTimeout(() => {
-    //       //     setLoading(false);
-    //       //   }, 1000);
-    //       // })
-    //       dispatch(handleLogin(data))
-          
-    //     }
     if (data) {
-			// setLoading(true);
-			// handleLogin?.(data, () => {
-			// 	setTimeout(() => {
-			// 		setLoading(false);
-			// 	}, 300);
-			// });
-			try {
-				const res = await dispatch(handleLogin(data)).unwrap();
-				console.log("res", res);
-			} catch (error) {
-				console.log("error", error);
-			}
-		}
-        
-      };
-      // const loadingFormLoginX = auth.loading.login
-      const loadingFormLoginRender = useDebounce(loading,3000)
-      console.log('🚀useDebounceLoading---->', loadingFormLoginRender);
-      
+      // setLoading(true);
+      // handleLogin?.(data, () => {
+      // 	setTimeout(() => {
+      // 		setLoading(false);
+      // 	}, 300);
+      // });
+      try {
+        const res = await dispatch(handleLogin(data)).unwrap();
+        // console.log("res", res);
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+  };
+  // const loadingFormLoginX = auth.loading.login
+  const loadingFormLoginRender = useDebounce(loading, 3000);
+  console.log("🚀useDebounceLoading---->", loadingFormLoginRender);
+
   return (
     <>
       <form onSubmit={handleSubmit(_onSubmit)} action="#">
-      {
-                 loading && <ComponentLoading/>
-              }
+        {loading && <ComponentLoading />}
         <Input
           name="email"
           label=" Email "
@@ -91,8 +64,7 @@ import useDebounce from "../../hooks/useDebounce";
             },
           })}
           error={errors?.email?.message || ""}
-          
-          />
+        />
         {/* End .form-group */}
         <Input
           name="password"
@@ -105,8 +77,7 @@ import useDebounce from "../../hooks/useDebounce";
             required: MESSEAGE.requiredPassword,
           })}
           error={errors?.password?.message || ""}
-          
-          />
+        />
         {/* End .form-group */}
         <div className="form-footer">
           <button type="submit" className="btn btn-outline-primary-2">
@@ -128,7 +99,7 @@ import useDebounce from "../../hooks/useDebounce";
             Forgot Your Password?
           </a>
         </div>
-              
+
         {/* End .form-footer */}
       </form>
       <div className="form-choice">

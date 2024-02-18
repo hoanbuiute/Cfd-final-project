@@ -31,102 +31,121 @@ export const authSlice = createSlice({
       // navigate(PATHS.HOME);
       state.profile = null;
       state.showModal = "";
-      message.success("Ban đã đăng xuất thành công");
+      message.success("Successful logout");
     },
   },
-  extraReducers: (builder) =>{
+  extraReducers: (builder) => {
     builder
 
-    .addCase(handleRegister.fulfilled, (state) => {
-      state.loading.register = false;
-    })
-    .addCase(handleRegister.pending, (state) => {
-      state.loading.register = true;
-    })
-    .addCase(handleRegister.rejected, (state) => {
-      state.loading.register = false;
-    })
-////Hoàn thành
-    .addCase(handleLogin.fulfilled, (state) => {
-      state.loading.login = false;
-      state.showModal = "";
-      // console.log("statefulfilled",state?.loading.login)
-      // console.log("1",1)
-    })
+      .addCase(handleRegister.fulfilled, (state) => {
+        state.loading.register = false;
+      })
+      .addCase(handleRegister.pending, (state) => {
+        state.loading.register = true;
+      })
+      .addCase(handleRegister.rejected, (state) => {
+        state.loading.register = false;
+      })
+      ////Hoàn thành
+      .addCase(handleLogin.fulfilled, (state) => {
+        state.loading.login = false;
+        state.showModal = "";
+        // console.log("statefulfilled",state?.loading.login)
+        // console.log("1",1)
+      })
 
-    .addCase(handleLogin.pending, (state) => {
-      state.loading.login = true;
-    })
-    .addCase(handleLogin.rejected, (state) => {
-      state.loading.login = false;
-    })
+      .addCase(handleLogin.pending, (state) => {
+        state.loading.login = true;
+      })
+      .addCase(handleLogin.rejected, (state) => {
+        state.loading.login = false;
+      })
 
-    // .addCase(handleGetProfile.fulfilled, (state, action) => {
-    //   state.profile = action.payload;
-    //   state.loading.getProfile = false;
-    // })
-    .addCase(handleGetProfile.pending, (state) => {
-      state.loading.getProfile = true;
-    })
-    .addCase(handleGetProfile.rejected, (state) => {
-      state.loading.getProfile = false;
-    })
-    .addCase(handleGetProfile.fulfilled,(state,action)=>{
- 
-      // ctrl + l
-      // console.log('🚀action---->', action);
-      state.profile = action.payload
-      state.loading.getProfile = false;
+      // .addCase(handleGetProfile.fulfilled, (state, action) => {
+      //   state.profile = action.payload;
+      //   state.loading.getProfile = false;
+      // })
+      .addCase(handleGetProfile.pending, (state) => {
+        state.loading.getProfile = true;
+      })
+      .addCase(handleGetProfile.rejected, (state) => {
+        state.loading.getProfile = false;
+      })
+      .addCase(handleGetProfile.fulfilled, (state, action) => {
+        // ctrl + l
+        // console.log('🚀action---->', action);
+        state.profile = action.payload;
+        state.loading.getProfile = false;
+      })
 
-    })
+      // Handle Add To Wishlist
+      .addCase(handleAddWishList.pending, (state) => {
+        state.loading.wishList = true;
+      })
+      .addCase(handleAddWishList.fulfilled, (state) => {
+        state.loading.wishList = false;
+      })
+      .addCase(handleAddWishList.rejected, (state) => {
+        state.loading.wishList = false;
+      })
 
-  }
+      // Handle Remove In Wishlist
+      .addCase(handleRemoveInWishList.pending, (state) => {
+        state.loading.wishList = true;
+      })
+      .addCase(handleRemoveInWishList.fulfilled, (state) => {
+        state.loading.wishList = false;
+      })
+      .addCase(handleRemoveInWishList.rejected, (state) => {
+        state.loading.wishList = false;
+      });
+  },
 });
 
 export const { actions, reducer: authReducer } = authSlice;
-export const {handleShowModal,handleCloseModal,handleLogout} = actions;
+export const { handleShowModal, handleCloseModal, handleLogout } = actions;
 
-export default authReducer ;
+export default authReducer;
 
-/////Thunk 
+/////Thunk Handle Login//
 export const handleLogin = createAsyncThunk(
   ///tên actions (nguyên tắc tên reducer/tên action)
- "auth/handleLogin", async (payload,{dispatch,getState}) =>{  
-  // const payload = { ...loginData };
-  ///xử lí api Login
-  try {
-    const res = await authService.login(payload);
-    console.log("res", res);
-    const { token: accessToken, refreshToken } = res?.data|| {};
-    tokenMethod.set({
-      accessToken,
-      refreshToken,
-    });
-    // dispatch(handleCloseModal())
-    dispatch(handleGetProfile())
-    dispatch(handdleGetCart())
-    message.success("đăng nhập thành công");
-    return true;
-    // if (!!tokenMethod) {
-    //   // console.log("accessToken",accessToken);
-    //   // console.log("refreshToken",refreshToken);
-    //   //Đăng nhập lấy thông tin profile
-    //   // handleGetProfile();
-    //   // handleGetProfilePayment();
-    //   // handleGetProfileCourse();
-    //   //Đóng modal
-    //   // handleCloseModal();
-    // } 
-  } catch (error) {
-    const errorInfo = error?.response?.data;
-    if (errorInfo.error === "Not Found") {
-      message.error("Username hoặc password không đúng");
+  "auth/handleLogin",
+  async (payload, { dispatch, getState }) => {
+    // const payload = { ...loginData };
+    ///xử lí api Login
+    try {
+      const res = await authService.login(payload);
+      console.log("res", res);
+      const { token: accessToken, refreshToken } = res?.data || {};
+      tokenMethod.set({
+        accessToken,
+        refreshToken,
+      });
+      // dispatch(handleCloseModal())
+      dispatch(handleGetProfile());
+      dispatch(handdleGetCart());
+      message.success("Sign-in Successfully");
+      return true;
+      // if (!!tokenMethod) {
+      //   // console.log("accessToken",accessToken);
+      //   // console.log("refreshToken",refreshToken);
+      //   //Đăng nhập lấy thông tin profile
+      //   // handleGetProfile();
+      //   // handleGetProfilePayment();
+      //   // handleGetProfileCourse();
+      //   //Đóng modal
+      //   // handleCloseModal();
+      // }
+    } catch (error) {
+      const errorInfo = error?.response?.data;
+      if (errorInfo.error === "Not Found") {
+        message.error("Username or password is incorrect");
+      }
+      return thunkApi.rejectWithValue(errorInfo);
     }
-    return thunkApi.rejectWithValue(errorInfo);
-  } 
- }
-)
-
+  }
+);
 
 ////Register
 export const handleRegister = createAsyncThunk(
@@ -143,8 +162,8 @@ export const handleRegister = createAsyncThunk(
     try {
       const registerRes = await authService.register(payload);
 
-      if ( registerRes?.data?.id) {
-        message.success("Đăng ký thành công");
+      if (registerRes?.data?.id) {
+        message.success("Successful registration");
         thunkAPI.dispatch(
           handleLogin({
             email: payload.email,
@@ -154,12 +173,12 @@ export const handleRegister = createAsyncThunk(
 
         return true;
       } else {
-        throw false
+        throw false;
       }
     } catch (error) {
       const errorInfo = error?.response?.data;
       if (errorInfo.error === "Forbidden") {
-        message.error("Email đã được đăng ký");
+        message.error("Email has been registered");
       }
       return thunkAPI.rejectWithValue(errorInfo);
     }
@@ -168,20 +187,78 @@ export const handleRegister = createAsyncThunk(
 
 export const handleGetProfile = createAsyncThunk(
   "auth/handleGetProfile",
-  async(_,thunkAPI) =>{
-    const {dispatch,getState} = thunkAPI;
+  async (_, thunkAPI) => {
+    const { dispatch, getState } = thunkAPI;
     try {
       const resProfile = await authService.getProfile();
       // if (res?.data?.data) {
       //   setProfile(res.data.data);
       // }
-      return resProfile?.data
-
+      return resProfile?.data;
     } catch (error) {
       console.log("error", error);
       return thunkAPI.rejectWithValue(error?.response?.data);
       // handleLogout();
     }
   }
+);
 
-)
+// Handle add wishlist
+export const handleAddWishList = createAsyncThunk(
+  "auth/handleAddWishList",
+  async (actionPayload, thunkApi) => {
+    if (tokenMethod.get()) {
+      try {
+        const { profile } = thunkApi.getState()?.auth || {};
+        const { whiteList } = profile || {};
+
+        let payload = {};
+        if (whiteList?.length > 0) {
+          const matchIndex = whiteList?.findIndex(
+            (item) => item?.id === actionPayload
+          );
+          if (matchIndex > -1) {
+            message.error("Product is already in wishlist");
+            return;
+          } else {
+            payload = { product: actionPayload };
+          }
+        } else {
+          payload = { product: actionPayload };
+        }
+        const res = await customerService.addProductToWishList(payload);
+        if (res?.data?.data) {
+          message.success("Add to wishlist successfully");
+          thunkApi.dispatch(handleGetProfile());
+        }
+        return res?.data?.data;
+      } catch (error) {
+        message.error(error?.response?.data);
+        return thunkApi.rejectWithValue(error?.response?.data);
+      }
+    }
+  }
+);
+
+// Handle remove wishlist
+export const handleRemoveInWishList = createAsyncThunk(
+  "auth/handleRemoveInWishList",
+  async (actionPayload, thunkApi) => {
+    if (tokenMethod.get()) {
+      try {
+        const payload = {
+          product: actionPayload,
+        };
+        const res = await customerService.deleteProductInWishList(payload);
+        if (res?.data?.data) {
+          message.success("Remove product in wishlist successfully");
+          thunkApi.dispatch(handleGetProfile());
+          return res?.data?.data;
+        }
+      } catch (error) {
+        message.error("Remove product in wishlist failed");
+        return thunkApi.rejectWithValue(error?.response?.data);
+      }
+    }
+  }
+);

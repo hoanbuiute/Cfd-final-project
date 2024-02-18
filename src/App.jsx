@@ -25,17 +25,19 @@ import { handleGetProfile } from "./store/reducers/authReducer";
 import { handdleGetCart } from "./store/reducers/cartReducer";
 import { useEffect } from "react";
 import tokenMethod from "./utils/token";
+import ChangePassword from "./pages/DashBoardPage/ChangePassword";
+import ReturnPage from "./pages/ReturnPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-
-    if(tokenMethod.get()){
-      dispatch(handleGetProfile())
-      dispatch(handdleGetCart())
+    if (tokenMethod.get()) {
+      dispatch(handleGetProfile());
+      dispatch(handdleGetCart());
     }
-  }, [])
-  
+  }, []);
+
   return (
     <>
       <BrowserRouter>
@@ -67,6 +69,10 @@ function App() {
                   path={PATHS.PROFILE.PROFILE_WISHLIST}
                   element={<MyWishlist />}
                 />
+                <Route
+                  path={PATHS.PROFILE.CHANGE_PASSWORD}
+                  element={<ChangePassword />}
+                />
               </Route>
             </Route>
             <Route path={PATHS.FAQ} element={<FaqPage />} />
@@ -83,7 +89,9 @@ function App() {
               element={<ProductDetailPage />}
             />
             <Route path={PATHS.PRODUCTS} element={<ProductPage />} />
+            <Route path={PATHS.RETURN} element={<ReturnPage />} />
             <Route path={PATHS.SHIPPING} element={<ShippingPage />} />
+            <Route path={PATHS.NOT_FOUND} element={<NotFoundPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

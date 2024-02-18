@@ -38,15 +38,15 @@ const CartDropdown = ({
   const _onRemoveClick = (e, removeIndex) => {
     e?.preventDefault();
     e?.stopPropagation();
-    const removeProduct = product?.[removeIndex] || {};
-    console.log("🚀removeIndex---->", removeIndex);
-    console.log("🚀removeProduct---->", removeProduct);
+    const removedProduct = product?.[removeIndex] || {};
+    // console.log("🚀removeIndex---->", removeIndex);
+    // console.log("🚀removeProduct---->", removedProduct);
     confirm({
       title: "Do you want remove item from cart ?",
       content: (
         <>
-          <p>{`${removeProduct.name || ""}`}</p>
-          <p>{`${removeProduct.quantity || 0} x $${removeProduct.price}`}</p>
+          <p>{`${removedProduct.name || ""}`}</p>
+          <p>{`${removedProduct.quantity || 0} x $${removedProduct.price}`}</p>
         </>
       ),
       onOk() {
@@ -55,7 +55,7 @@ const CartDropdown = ({
         }
       },
       onCancel() {
-    console.log('🚀cancel---->', cancel);
+        console.log("Cancel");
       },
     });
   };
@@ -142,13 +142,13 @@ const CartDropdown = ({
           <span className="cart-total-price">${formatCurrency(total)}</span>
         </div>
         <div className="dropdown-cart-action">
-          <a href="cart.html" className="btn btn-primary">
+          <Link to={PATHS.CART} className="btn btn-primary">
             View Cart
-          </a>
-          <a href="checkout.html" className="btn btn-outline-primary-2">
+          </Link>
+          <Link to={PATHS.CHECKOUT} className="btn btn-outline-primary-2">
             <span>Checkout</span>
             <i className="icon-long-arrow-right" />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

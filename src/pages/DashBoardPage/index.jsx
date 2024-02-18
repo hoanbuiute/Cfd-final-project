@@ -1,12 +1,24 @@
 import React from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import PATHS from "../../constants/paths";
 import AccoutDetail from "./AccoutDetail";
 import MyOrder from "./MyOrder";
 import MyAdresses from "./MyAdresses";
 import MyWishlist from "./MyWishlist";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../store/reducers/cartReducer";
+import { handleLogout } from "../../store/reducers/authReducer";
 
 const DashBoardPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const _onLogout = () => {
+    
+    dispatch(handleLogout());
+    dispatch(clearCart());
+    navigate(PATHS.HOME);
+  };
   return (
     <main className="main">
       <div
@@ -70,7 +82,16 @@ const DashBoardPage = () => {
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="#">
+                    <NavLink
+                      to={PATHS.PROFILE.CHANGE_PASSWORD}
+                      className="nav-link"
+                      href="#"
+                    >
+                      Change Password
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="#"  onClick={_onLogout}>
                       Sign Out
                     </a>
                   </li>

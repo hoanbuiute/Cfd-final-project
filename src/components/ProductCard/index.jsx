@@ -4,6 +4,8 @@ import PATHS from '../../constants/paths'
 import styled from 'styled-components';
 import { Empty } from 'antd';
 import { formatCurrency, formatNumber } from '../../utils/format';
+import { useDispatch } from 'react-redux';
+import { handdleAddCart } from '../../store/reducers/cartReducer';
 
 const ImageWrapper = styled.div`
   width: 100%;
@@ -22,13 +24,29 @@ const ImageWrapper = styled.div`
 // };
 
 const ProductCard = (item) => {
-  const {name,price,images,slug,title,discount,rating} = item || {};
+  const {name,price,images,slug,title,discount,rating,id,
+    color} = item || {};
+  // console.log('🚀item---->',item );
   // console.log("images",images);
   const productPath = PATHS.PRODUCTS + `/${slug}`;
+  const dispatch = useDispatch();
   const _onAddToCart = (e) => {
     e?.preventDefault();
-   console.log("1",1)
+    e?.stopPropagation();
+    // ADD CART
+
+    // Set up data cart
+    const addPayload = {
+      addedId: id,
+      addedColor: color?.[0] || "",
+      addedQuatity: 1,
+      addedPrice: price - discount,
+    };
+
+    // Gọi `handleAddCart` và truyền payload vào - hàm `handleAddCart` này được tạo từ `cartReducer`
+    dispatch(handdleAddCart(addPayload));
   };
+
   return (
     <div className="product product-2">
     <figure className="product-media">

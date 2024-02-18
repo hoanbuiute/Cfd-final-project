@@ -9,10 +9,9 @@ export const MODAL_TYPE = {
     register:"register"
 };
 
-export const PAYMENT_METHOD_LABEL = {
-    atm : "Chuyển Khoản",
-    cash: "Tiền Mặt",
-    momo: "MOMO",
+export const PAYMENT_METHOD = {
+  cash: "cash",
+  card: "card",
 }
 
 export const SORT_OPTIONS = {
@@ -42,3 +41,23 @@ export const SORT_OPTIONS = {
       queryObject: { orderBy: "rating", order: "-1" },
     },
   };
+
+  export const SHIPPING_OPTIONS = [
+    {
+      label: "Free Shipping",
+      value: "freeshipping",
+      price: 0,
+    },
+  
+    {
+      label: "Standard",
+      value: "standard",
+      price: 10,
+    },
+  
+    {
+      label: "Express",
+      value: "express",
+      price: 20,
+    },
+  ];

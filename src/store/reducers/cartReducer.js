@@ -29,6 +29,7 @@ export const cartSlice = createSlice({
     builder.addCase(handdleGetCart.fulfilled, (state, action) => {
       state.cartLoading = false;
       state.cartInfo = action.payload;
+      console.log('🚀action---->',action );
     });
     builder.addCase(handdleGetCart.rejected, (state, action) => {
       state.cartLoading = false;
@@ -56,6 +57,19 @@ export const cartSlice = createSlice({
 
     });
     builder.addCase(handleRemoveCart.rejected, (state, action) => {
+      state.cartLoading = false;
+
+    });
+
+    ///Update
+    builder.addCase(handleUpdateCart.pending, (state) => {
+      state.cartLoading = true;
+    });
+    builder.addCase(handleUpdateCart.fulfilled, (state) => {
+      state.cartLoading = false;
+
+    });
+    builder.addCase(handleUpdateCart.rejected, (state) => {
       state.cartLoading = false;
 
     });
@@ -175,9 +189,8 @@ export const handleRemoveCart = createAsyncThunk(
   async (activePayload, thunkApi) => {
     try {
       const { removeIndex } = activePayload || {};
-      
       const { cartInfo } = thunkApi.getState()?.cart || {};
-      console.log('🚀cartInfo---->', cartInfo);
+      // console.log('🚀cartInfo---->', cartInfo);
       
     if (removeIndex < 0) return false;
       /////lấy những sản phẩm không remove
@@ -224,3 +237,20 @@ export const handleRemoveCart = createAsyncThunk(
     }
   }
 );
+//////////////////////////////////////////////UPDATECART//////////////////////////////////////////////
+export const handleUpdateCart =createAsyncThunk (
+  "cart/handleUpdateCart",
+  async (activePayload, thunkApi) => {
+    try {
+      const cartRes = await cartService.updateCart(activePayload);
+      thunkApi.dispatch(handdleGetCart());
+      message.success("Update from cart successfully");
+      return cartRes?.data;
+    } catch (error) {
+      thunkApi.rejectWithValue(error);
+      message.error("Update to cart failed");
+      throw error;
+    }
+  }
+
+)

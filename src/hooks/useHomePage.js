@@ -1,10 +1,11 @@
 import { useState } from "react";
 import useQuery from "../hooks/useQuery";
-import { pageService } from "../services/pageService";
+
 import { productService } from "../services/productsService";
 import useMutation from "./useMutation";
 import { subscribeService } from "../services/subscribeService";
 import { message } from "antd";
+import { pageService } from "../services/pageService";
 const useHomePage = () => {
   ////////////////////CALL API///////////////////////////////////
   const { data: productsData,loading:productsLoading } = useQuery(productService.getProducts);

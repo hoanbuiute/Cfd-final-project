@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { MenuStyled } from "../StyledComponent";
 import PATHS from "../../constants/paths";
 import { useMainContext } from "../Context/MainContext";
+import useQuery from "../../hooks/useQuery";
+import { productService } from "../../services/productsService";
+import { cn } from "../../utils/cn";
+
+const MENUS = {
+  MENU: "menu",
+  CATE: "cate",
+};
 
 const Navbar = () => {
-  const { handleCloseNavbar, handleShowNavbar } = useMainContext();
+  const { data: categoriesData } = useQuery(productService.getCategories);
+  const { handleCloseNavbar } = useMainContext();
+  const [selectedTab, setSelectedTab] = useState(MENUS.MENU);
+  const _onTabChange = (e, selectedTab) => {
+    e.preventDefault();
+    setSelectedTab(selectedTab);
+  };
+  const categories = categoriesData?.products || [];
+  // console.log('🚀categories---->',categories );
   return (
+   <>
+    <div className="mobile-menu-overlay" onClick={handleCloseNavbar} />
     <div className="mobile-menu-container">
       <div className="mobile-menu-wrapper">
         <span className="mobile-menu-close">
@@ -29,39 +47,38 @@ const Navbar = () => {
           </button>
         </form>
         <ul className="nav nav-pills-mobile nav-border-anim" role="tablist">
-          <li className="nav-item">
-            <a
-              className="nav-link active"
-              id="mobile-menu-link"
-              data-toggle="tab"
-              href="#mobile-menu-tab"
-              role="tab"
-              aria-controls="mobile-menu-tab"
-              aria-selected="true"
-            >
-              Menu
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              id="mobile-cats-link"
-              data-toggle="tab"
-              href="#mobile-cats-tab"
-              role="tab"
-              aria-controls="mobile-cats-tab"
-              aria-selected="false"
-            >
-              Categories
-            </a>
-          </li>
-        </ul>
+            {/* Tab menus */}
+            <li className="nav-item">
+              <a
+                className={cn("nav-link", {
+                  active: selectedTab === MENUS.MENU,
+                })}
+                href="#mobile-menu-tab"
+                onClick={(e) => _onTabChange(e, MENUS.MENU)}
+              >
+                Menu
+              </a>
+            </li>
+
+            {/* Tab categories */}
+            <li className="nav-item">
+              <a
+                className={cn("nav-link", {
+                  active: selectedTab === MENUS.CATE,
+                })}
+                href="#mobile-cats-tab"
+                onClick={(e) => _onTabChange(e, MENUS.CATE)}
+              >
+                Categories
+              </a>
+            </li>
+          </ul>
         <div className="tab-content">
           <div
-            className="tab-pane fade show active"
-            id="mobile-menu-tab"
-            role="tabpanel"
-            aria-labelledby="mobile-menu-link"
+             className={cn("tab-pane fade", {
+              active: selectedTab === MENUS.MENU,
+              show: selectedTab === MENUS.MENU,
+            })}
           >
             <nav className="mobile-nav">
               <MenuStyled className="mobile-menu">
@@ -88,14 +105,27 @@ const Navbar = () => {
           </div>
           {/* .End .tab-pane */}
           <div
-            className="tab-pane fade"
-            id="mobile-cats-tab"
-            role="tabpanel"
-            aria-labelledby="mobile-cats-link"
+                 className={cn("tab-pane fade", {
+                  active: selectedTab === MENUS.CATE,
+                  show: selectedTab === MENUS.CATE,
+                })}
           >
             <nav className="mobile-cats-nav">
               <ul className="mobile-cats-menu">
-                <li>
+              {categories?.length > 0 &&
+                    categories.map((category, index) => {
+                      const categoryPath =
+                        category?.id &&
+                        PATHS.PRODUCTS + `?category=${category?.id}`;
+                      return (
+                        <li key={category?.id || index}>
+                          <NavLink to={categoryPath}>
+                            {category?.name || ""}
+                          </NavLink>
+                        </li>
+                      );
+                    })}
+                {/* <li>
                   <a className="mobile-cats-lead" href="#">
                     TV
                   </a>
@@ -111,7 +141,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <a href="#">Accessories</a>
-                </li>
+                </li> */}
               </ul>
               {/* End .mobile-cats-menu */}
             </nav>
@@ -138,6 +168,7 @@ const Navbar = () => {
       </div>
       {/* End .mobile-menu-wrapper */}
     </div>
+   </>
   );
 };
 

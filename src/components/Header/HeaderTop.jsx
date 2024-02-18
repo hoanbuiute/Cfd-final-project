@@ -10,7 +10,8 @@ import { handleLogout, handleShowModal } from "../../store/reducers/authReducer"
 const HeaderTop = () => {
   // const {showModal, handleShowModal,handleLogout } = useAuthContext();
   const {profile,loading} = useSelector((state)=>state.auth)
-  console.log("profile",profile);
+  // console.log("profile",profile);
+  const { firstName, email } = profile || {};
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //function hiển thị modal
@@ -35,8 +36,8 @@ const HeaderTop = () => {
     <div className="header-top">
       <div className="container">
         <div className="header-left">
-          <a href="tel:0989596912">
-            <i className="icon-phone" /> Hotline: 098 9596 912{" "}
+          <a href="tel:0969621355">
+            <i className="icon-phone" /> Hotline: 0969621355{" "}
           </a>
         </div>
         <div className="header-right">
@@ -59,7 +60,7 @@ const HeaderTop = () => {
               <li>
                 <a href="#" className="top-link-menu">
                   <i className="icon-user" />
-                  Tran Nghia{" "}
+                  {firstName || email || "Guest"}
                 </a>
                 <ul>
                   <li>
@@ -72,7 +73,7 @@ const HeaderTop = () => {
                       </li>
                       <li>
                         <Link to={PATHS.PROFILE.PROFILE_WISHLIST}>
-                          Wishlist <span>(3)</span>
+                          Wishlist <span>({profile?.whiteList?.length})</span>
                         </Link>
                       </li>
                       <li>

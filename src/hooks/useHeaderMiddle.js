@@ -78,7 +78,7 @@ const useHeaderMiddle = () => {
     }
   }, []);
   const handleRemoveProduct = (removeIndex) => {
-    if (cartLoading || removeIndex > 0) return;
+    if (cartLoading || removeIndex < 0) return;
      dispatch(handleRemoveCart({removeIndex}));
   };
   const dropdowCartProp = {

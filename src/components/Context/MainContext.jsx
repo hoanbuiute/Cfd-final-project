@@ -12,19 +12,21 @@ const MainContextProvider = ({ children }) => {
     const  {pathname} = useLocation();
 
     useEffect(() => {
-      handleCloseNavbar();
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "smooth",
-          });
-         
-      
+      const scrollTop = (e) => {
+        e?.preventDefault();
+        $("html, body").animate(
+          {
+            scrollTop: 0,
+          },
+          800
+          );
+        };
+        handleCloseNavbar();
     }, [pathname])
 ///Cờ với biến ishow
     const handleShowNavbar = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+      e?.preventDefault();
+      e?.stopPropagation();
       $("body").addClass("mmenu-active");
       // console.log("isShow",isShow);
     };

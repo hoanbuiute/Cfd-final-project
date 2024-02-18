@@ -46,8 +46,12 @@ export const REGREX = {
   };
 
 export const MESSEAGE = {
-  requiredEmail :"Bạn chưa điền thông tin Email",
-  requiredPassword:"Vui lòng điền mật khẩu",
-   email: "Bạn nhập sai định dạng Email"
+  required: "Please enter your information",
+  requiredEmail :"You haven't filled in your Emai",
+  requiredPassword: "Please enter your password",
+
+   email: "Please enter your email with format abc@xyz.com",
+   password: "Please enter your password of at least 6 characters",
+   phone: "Please enter your phone number correct format",
 }
 

@@ -132,61 +132,61 @@ $(document).ready(function () {
     // }
 
     // Product countdown
-    if ($.fn.countdown) {
-        $('.product-countdown').each(function () {
-            var $this = $(this),
-                untilDate = $this.data('until'),
-                compact = $this.data('compact'),
-                dateFormat = (!$this.data('format')) ? 'DHMS' : $this.data('format'),
-                newLabels = (!$this.data('labels-short')) ?
-                    ['Years', 'Months', 'Weeks', 'Days', 'Hours', 'Minutes', 'Seconds'] :
-                    ['Years', 'Months', 'Weeks', 'Days', 'Hours', 'Mins', 'Secs'],
-                newLabels1 = (!$this.data('labels-short')) ?
-                    ['Year', 'Month', 'Week', 'Day', 'Hour', 'Minute', 'Second'] :
-                    ['Year', 'Month', 'Week', 'Day', 'Hour', 'Min', 'Sec'];
+    // if ($.fn.countdown) {
+    //     $('.product-countdown').each(function () {
+    //         var $this = $(this),
+    //             untilDate = $this.data('until'),
+    //             compact = $this.data('compact'),
+    //             dateFormat = (!$this.data('format')) ? 'DHMS' : $this.data('format'),
+    //             newLabels = (!$this.data('labels-short')) ?
+    //                 ['Years', 'Months', 'Weeks', 'Days', 'Hours', 'Minutes', 'Seconds'] :
+    //                 ['Years', 'Months', 'Weeks', 'Days', 'Hours', 'Mins', 'Secs'],
+    //             newLabels1 = (!$this.data('labels-short')) ?
+    //                 ['Year', 'Month', 'Week', 'Day', 'Hour', 'Minute', 'Second'] :
+    //                 ['Year', 'Month', 'Week', 'Day', 'Hour', 'Min', 'Sec'];
 
-            var newDate;
+    //         var newDate;
 
-            // Split and created again for ie and edge 
-            if (!$this.data('relative')) {
-                var untilDateArr = untilDate.split(", "), // data-until 2019, 10, 8 - yy,mm,dd
-                    newDate = new Date(untilDateArr[0], untilDateArr[1] - 1, untilDateArr[2]);
-            } else {
-                newDate = untilDate;
-            }
+    //         // Split and created again for ie and edge 
+    //         if (!$this.data('relative')) {
+    //             var untilDateArr = untilDate.split(", "), // data-until 2019, 10, 8 - yy,mm,dd
+    //                 newDate = new Date(untilDateArr[0], untilDateArr[1] - 1, untilDateArr[2]);
+    //         } else {
+    //             newDate = untilDate;
+    //         }
 
-            $this.countdown({
-                until: newDate,
-                format: dateFormat,
-                padZeroes: true,
-                compact: compact,
-                compactLabels: ['y', 'm', 'w', ' days,'],
-                timeSeparator: ' : ',
-                labels: newLabels,
-                labels1: newLabels1
+    //         $this.countdown({
+    //             until: newDate,
+    //             format: dateFormat,
+    //             padZeroes: true,
+    //             compact: compact,
+    //             compactLabels: ['y', 'm', 'w', ' days,'],
+    //             timeSeparator: ' : ',
+    //             labels: newLabels,
+    //             labels1: newLabels1
 
-            });
-        });
+    //         });
+    //     });
 
-        // Pause
-        // $('.product-countdown').countdown('pause');
-    }
+    //     // Pause
+    //     // $('.product-countdown').countdown('pause');
+    // }
 
-    // Quantity Input - Cart page - Product Details pages
-    function quantityInputs() {
-        if ($.fn.inputSpinner) {
-            $("input[type='number']").inputSpinner({
-                decrementButton: '<i class="icon-minus"></i>',
-                incrementButton: '<i class="icon-plus"></i>',
-                groupClass: 'input-spinner',
-                buttonsClass: 'btn-spinner',
-                buttonsWidth: '26px'
-            });
-        }
-    }
+    // // Quantity Input - Cart page - Product Details pages
+    // function quantityInputs() {
+    //     if ($.fn.inputSpinner) {
+    //         $("input[type='number']").inputSpinner({
+    //             decrementButton: '<i class="icon-minus"></i>',
+    //             incrementButton: '<i class="icon-plus"></i>',
+    //             groupClass: 'input-spinner',
+    //             buttonsClass: 'btn-spinner',
+    //             buttonsWidth: '26px'
+    //         });
+    //     }
+    // }
 
-    // Sticky Content - Sidebar - Social Icons etc..
-    // Wrap elements with <div class="sticky-content"></div> if you want to make it sticky
+    // // Sticky Content - Sidebar - Social Icons etc..
+    // // Wrap elements with <div class="sticky-content"></div> if you want to make it sticky
     if ($.fn.stick_in_parent && $(window).width() >= 992) {
         $('.sticky-content').stick_in_parent({
             offset_top: 80,
@@ -238,59 +238,59 @@ $(document).ready(function () {
     // }
 
     // Product Gallery - product-gallery.html 
-    if ($.fn.owlCarousel && $.fn.elevateZoom) {
-        var owlProductGallery = $('.product-gallery-carousel');
+    // if ($.fn.owlCarousel && $.fn.elevateZoom) {
+    //     var owlProductGallery = $('.product-gallery-carousel');
 
-        owlProductGallery.on('initialized.owl.carousel', function () {
-            owlProductGallery.find('.active img').elevateZoom({
-                zoomType: "inner",
-                cursor: "crosshair",
-                zoomWindowFadeIn: 400,
-                zoomWindowFadeOut: 400,
-                responsive: true
-            });
-        });
+    //     owlProductGallery.on('initialized.owl.carousel', function () {
+    //         owlProductGallery.find('.active img').elevateZoom({
+    //             zoomType: "inner",
+    //             cursor: "crosshair",
+    //             zoomWindowFadeIn: 400,
+    //             zoomWindowFadeOut: 400,
+    //             responsive: true
+    //         });
+    //     });
 
-        owlProductGallery.owlCarousel({
-            loop: false,
-            margin: 0,
-            responsiveClass: true,
-            nav: true,
-            navText: ['<i class="icon-angle-left">', '<i class="icon-angle-right">'],
-            dots: false,
-            smartSpeed: 400,
-            autoplay: false,
-            autoplayTimeout: 15000,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                560: {
-                    items: 2
-                },
-                992: {
-                    items: 3
-                },
-                1200: {
-                    items: 3
-                }
-            }
-        });
+    //     owlProductGallery.owlCarousel({
+    //         loop: false,
+    //         margin: 0,
+    //         responsiveClass: true,
+    //         nav: true,
+    //         navText: ['<i class="icon-angle-left">', '<i class="icon-angle-right">'],
+    //         dots: false,
+    //         smartSpeed: 400,
+    //         autoplay: false,
+    //         autoplayTimeout: 15000,
+    //         responsive: {
+    //             0: {
+    //                 items: 1
+    //             },
+    //             560: {
+    //                 items: 2
+    //             },
+    //             992: {
+    //                 items: 3
+    //             },
+    //             1200: {
+    //                 items: 3
+    //             }
+    //         }
+    //     });
 
-        owlProductGallery.on('change.owl.carousel', function () {
-            $('.zoomContainer').remove();
-        });
+    //     owlProductGallery.on('change.owl.carousel', function () {
+    //         $('.zoomContainer').remove();
+    //     });
 
-        owlProductGallery.on('translated.owl.carousel', function () {
-            owlProductGallery.find('.active img').elevateZoom({
-                zoomType: "inner",
-                cursor: "crosshair",
-                zoomWindowFadeIn: 400,
-                zoomWindowFadeOut: 400,
-                responsive: true
-            });
-        });
-    }
+    //     owlProductGallery.on('translated.owl.carousel', function () {
+    //         owlProductGallery.find('.active img').elevateZoom({
+    //             zoomType: "inner",
+    //             cursor: "crosshair",
+    //             zoomWindowFadeIn: 400,
+    //             zoomWindowFadeOut: 400,
+    //             responsive: true
+    //         });
+    //     });
+    // }
 
     // Product Gallery Separeted- product-sticky.html 
     if ($.fn.elevateZoom) {
@@ -331,29 +331,29 @@ $(document).ready(function () {
         });
     }
 
-    // Checkout discount input - toggle label if input is empty etc...
-    $('#checkout-discount-input').on('focus', function () {
-        // Hide label on focus
-        $(this).parent('form').find('label').css('opacity', 0);
-    }).on('blur', function () {
-        // Check if input is empty / toggle label
-        var $this = $(this);
+    // // Checkout discount input - toggle label if input is empty etc...
+    // $('#checkout-discount-input').on('focus', function () {
+    //     // Hide label on focus
+    //     $(this).parent('form').find('label').css('opacity', 0);
+    // }).on('blur', function () {
+    //     // Check if input is empty / toggle label
+    //     var $this = $(this);
 
-        if ($this.val().length !== 0) {
-            $this.parent('form').find('label').css('opacity', 0);
-        } else {
-            $this.parent('form').find('label').css('opacity', 1);
-        }
-    });
+    //     if ($this.val().length !== 0) {
+    //         $this.parent('form').find('label').css('opacity', 0);
+    //     } else {
+    //         $this.parent('form').find('label').css('opacity', 1);
+    //     }
+    // });
 
     // Dashboard Page Tab Trigger
-    $('.tab-trigger-link').on('click', function (e) {
-        var targetHref = $(this).attr('href');
+    // $('.tab-trigger-link').on('click', function (e) {
+    //     var targetHref = $(this).attr('href');
 
-        $('.nav-dashboard').find('a[href="' + targetHref + '"]').trigger('click');
+    //     $('.nav-dashboard').find('a[href="' + targetHref + '"]').trigger('click');
 
-        e.preventDefault();
-    });
+    //     e.preventDefault();
+    // });
 
     // Masonry / Grid layout fnction
     function layoutInit(container, selector) {
@@ -631,56 +631,56 @@ $(document).ready(function () {
 
 
     // SELECTOR CITY
-    var citis = document.getElementById("city");
-    var districts = document.getElementById("district");
-    var wards = document.getElementById("ward");
-    var Parameter = {
-        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-        method: "GET",
-        responseType: "application/json",
-    };
-    if (citis) {
+    // var citis = document.getElementById("city");
+    // var districts = document.getElementById("district");
+    // var wards = document.getElementById("ward");
+    // var Parameter = {
+    //     url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+    //     method: "GET",
+    //     responseType: "application/json",
+    // };
+    // if (citis) {
 
-        var promise = axios(Parameter);
-        promise.then(function (result) {
-            renderCity(result.data);
-        });
+    //     var promise = axios(Parameter);
+    //     promise.then(function (result) {
+    //         renderCity(result.data);
+    //     });
 
-        function renderCity(data) {
-            for (const x of data) {
-                citis.options[citis.options.length] = new Option(x.Name, x.Id);
-            }
-            citis.onchange = function () {
-                district.length = 1;
-                ward.length = 1;
-                if (this.value != "") {
-                    const result = data.filter(n => n.Id === this.value);
+    //     function renderCity(data) {
+    //         for (const x of data) {
+    //             citis.options[citis.options.length] = new Option(x.Name, x.Id);
+    //         }
+    //         citis.onchange = function () {
+    //             district.length = 1;
+    //             ward.length = 1;
+    //             if (this.value != "") {
+    //                 const result = data.filter(n => n.Id === this.value);
 
-                    for (const k of result[0].Districts) {
-                        district.options[district.options.length] = new Option(k.Name, k.Id);
-                    }
-                }
-            };
-            district.onchange = function () {
-                ward.length = 1;
-                const dataCity = data.filter((n) => n.Id === citis.value);
-                if (this.value != "") {
-                    const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+    //                 for (const k of result[0].Districts) {
+    //                     district.options[district.options.length] = new Option(k.Name, k.Id);
+    //                 }
+    //             }
+    //         };
+    //         district.onchange = function () {
+    //             ward.length = 1;
+    //             const dataCity = data.filter((n) => n.Id === citis.value);
+    //             if (this.value != "") {
+    //                 const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
 
-                    for (const w of dataWards) {
-                        wards.options[wards.options.length] = new Option(w.Name, w.Id);
-                    }
-                }
-            };
-        }
-    }
+    //                 for (const w of dataWards) {
+    //                     wards.options[wards.options.length] = new Option(w.Name, w.Id);
+    //                 }
+    //             }
+    //         };
+    //     }
+    // }
 
 
     // Select Colors
-    let itemColor = $('.product-nav-dots .product-nav-item')
-    itemColor.on('click', function () {
-        itemColor.removeClass('active')
-        $(this).addClass('active')
-    })
+    // let itemColor = $('.product-nav-dots .product-nav-item')
+    // itemColor.on('click', function () {
+    //     itemColor.removeClass('active')
+    //     $(this).addClass('active')
+    // })
 
 });
